@@ -35,7 +35,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> register(
+    public ResponseEntity<?> login(
             @RequestBody AuthenticationRequest request
     ){
         boolean validatePassword =registrationService.validatePassword(request.getPassword());

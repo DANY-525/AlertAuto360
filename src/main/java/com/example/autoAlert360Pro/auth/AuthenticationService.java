@@ -5,6 +5,7 @@ import com.example.autoAlert360Pro.entities.User;
 import com.example.autoAlert360Pro.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,14 +30,11 @@ public class AuthenticationService {
         return  AuthenticationResponse.builder().token(jwtToken).build();
     }
    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                request.getEmail(),
-                request.getPassword()
-            )
-        );
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
+       if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+           throw new BadCredentialsException("Credenciales inválidas");
+       }
         var jwtToken  = jwtService.generateToken(user);
         return  AuthenticationResponse.builder().token(jwtToken).build();
     }
