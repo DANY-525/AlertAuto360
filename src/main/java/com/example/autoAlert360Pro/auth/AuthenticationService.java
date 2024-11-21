@@ -26,7 +26,7 @@ public class AuthenticationService {
                 .enabled(true)
                 .password(passwordEncoder.encode(request.getPassword())).build();
                  repository.save(user);
-        String jwtToken  = jwtService.generateToken(user);
+        String jwtToken  = jwtService.generateToken( user);
         return  AuthenticationResponse.builder().token(jwtToken).build();
     }
    public AuthenticationResponse authenticate(AuthenticationRequest request) {
