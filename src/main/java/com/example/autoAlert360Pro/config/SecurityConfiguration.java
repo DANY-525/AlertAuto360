@@ -46,7 +46,7 @@ public class SecurityConfiguration {
                 // Configura el proveedor de autenticación
                 .authenticationProvider(authenticationProvider)
                 // Añade el filtro JWT antes del UsernamePasswordAuthenticationFilter
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+               .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

@@ -28,7 +28,7 @@ public class Vehicle {
     @Column(name = "tecno_expiration_date", nullable = false)
     private java.time.LocalDate tecnoExpirationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
 }

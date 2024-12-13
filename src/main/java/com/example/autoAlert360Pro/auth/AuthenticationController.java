@@ -22,6 +22,7 @@ public class AuthenticationController {
         boolean validatePassword =registrationService.validatePassword(request.getPassword());
         boolean validateEmail = registrationService.ValidateEmail(request.getEmail());
         boolean validateAlreadyExistOnDatabase = registrationService.validateEmailExist(request.getEmail());
+
         if(!validateEmail){
             return new ResponseEntity<>("WrongEmail", HttpStatus.NOT_ACCEPTABLE);
         }else if (!validatePassword){
