@@ -6,9 +6,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Base64;
@@ -19,7 +18,7 @@ public class IngestionController {
 
     @Autowired
     private IngestionService ingestionService;
-
+    @Scheduled(cron = "0 0 0 * * ?") // Ejecuta todos los días a la medianoche (00:00)
     @PostMapping("/send")
     public String sendData() {
         // Get the scraped content from the service
@@ -43,4 +42,27 @@ public class IngestionController {
 
         return "Response from NestJS: " + response;
     }
+    @GetMapping("/list-files")
+    public String listFiles() {
+        String nestUrl = "http://localhost:3000/api/processing/list-files";
+        RestTemplate restTemplate = new RestTemplate();
+
+        // Send the GET request to NestJS microservice
+        String response = restTemplate.getForObject(nestUrl, String.class);
+
+        return   response;
+    }
+
+    @GetMapping("/download/{fileName}")
+    public String downloadFile(@PathVariable String fileName) {
+        String nestUrl = "http://localhost:3000/api/processing/download/" + fileName;
+        RestTemplate restTemplate = new RestTemplate();
+
+        // Send the GET request to NestJS microservice
+        String response = restTemplate.getForObject(nestUrl, String.class);
+
+        return "Downloaded file from NestJS: " + response;
+    }
+
+
 }

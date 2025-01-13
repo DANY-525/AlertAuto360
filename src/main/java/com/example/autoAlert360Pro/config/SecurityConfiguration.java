@@ -37,7 +37,9 @@ public class SecurityConfiguration {
                                 "/api/vehicles",
                                 "/api/vehicles/user/**",
                                 "/api/vehicles/{id}",
-                                "/api/ingestion/send"
+                                "/api/ingestion/send",
+                                "/api/ingestion/list-files",
+                                "/api/ingestion/download/{fileName}"
                         ).permitAll()
                         // Cualquier otra solicitud debe estar autenticada
                         .anyRequest().authenticated()
