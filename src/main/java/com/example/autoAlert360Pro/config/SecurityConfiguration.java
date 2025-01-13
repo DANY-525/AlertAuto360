@@ -36,7 +36,8 @@ public class SecurityConfiguration {
                                 "/vehicle",
                                 "/api/vehicles",
                                 "/api/vehicles/user/**",
-                                "/api/vehicles/{id}"
+                                "/api/vehicles/{id}",
+                                "/api/ingestion/send"
                         ).permitAll()
                         // Cualquier otra solicitud debe estar autenticada
                         .anyRequest().authenticated()
